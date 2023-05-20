@@ -1,0 +1,11 @@
+.game-board {
+    height: 75vh;
+    width: 75vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.game-board div {
+    border: 2px solid black;
+}

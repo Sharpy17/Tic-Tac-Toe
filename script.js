@@ -1,35 +1,86 @@
-let displayGameFlow = (function () {
+let createGrid = (function () {
+
   // Cache DOM
+
   const gameBoard = document.querySelector(".game-board");
+
+  // Create Grid
+
+  for (let row = 0; row < 3; row++) {
+    for (let column = 0; column < 3; column++) {
+      const square = document.createElement("div");
+      gameBoard.appendChild(square);
+      square.classList.add(`${row}-${column}`);
+    }
+  }
+})();
+
+
+
+let displayGameFlow = (function () {
+
   // Game information
+
+  let gameFlow = [];
   let boardMatrix = [];
   for (let i = 0; i < 3; i++) {
     boardMatrix[i] = [];
     for (let j = 0; j < 3; j++) {
       boardMatrix[i][j] = [];
       for (let z = 0; z < 1; z++) {
-        boardMatrix[i][j][z] = "x";
+        boardMatrix[i][j][z] = "X";
       }
     }
-  }
-  // Translate information
-  function translateInformation(row, column) {
-    boardMatrix[row][column] = 
   }
 
-  // Create Grid
-    function createGrid() {
-    for (let row = 0; row < 3; row++) {
-      for (let column = 0; column < 3; column++) {
-        const square = document.createElement("div");
-        square.classList.add(`${row}, ${column}`)
-        gameBoard.appendChild(square);
-      }
-    }
+  // Translate information
+
+  function translateInformation(row, column) {
+    const squares = document.getElementsByClassName(`${row}-${column}`);
+    const squaresArr = Array.from(squares); 
+    squaresArr[0].textContent = boardMatrix[row][column];
   };
+
   return {
     boardMatrix,
-    createGrid,
+    gameFlow,
     translateInformation
   }
 })();
+
+
+
+let getInfoFromUser = (function () {
+
+  // Pre-requisites
+
+  const squares = document.querySelectorAll("div");
+  const squaresArr = Array.from(squares);
+
+  // Event Listeners
+
+  for (let i = 0; i < squaresArr.length; i++) {
+    (function() {
+      let marker = displayGameFlow.gameFlow.length % 2 === 0 ? "X" : "O"
+      squaresArr[i].addEventListener("click", pushToGameFlow(marker));
+      squaresArr[i].addEventListener("click", substituteInfo(squaresArr[i], marker));
+      console.log(displayGameFlow.gameFlow);
+      console.log(displayGameFlow.boardMatrix);
+    })();
+  }
+
+  // Manipulate Information
+  
+  function pushToGameFlow(marker) {
+    displayGameFlow.gameFlow.push(marker);
+  }
+
+  function substituteInfo(square, marker) {
+    const squareName = square.className
+    const row = squareName.slice(0, 1);
+    const column = squareName.slice(2, 3);
+    displayGameFlow.boardMatrix[row][column].push(marker); 
+  }; 
+
+})();
+

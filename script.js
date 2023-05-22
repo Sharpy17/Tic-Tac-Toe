@@ -58,16 +58,13 @@ let getInfoFromUser = (function () {
   const squaresArr = Array.from(squares);
 
   // Event Listeners
-
-  for (let i = 0; i < squaresArr.length; i++) {
-    (function() {
-      let marker = displayGameFlow.gameFlow.length % 2 === 0 ? "X" : "O"
-      squaresArr[i].addEventListener("click", pushToGameFlow(marker));
-      squaresArr[i].addEventListener("click", substituteInfo(squaresArr[i], marker));
-      console.log(displayGameFlow.gameFlow);
-      console.log(displayGameFlow.boardMatrix);
-    })();
-  }
+  
+  // squaresArr.forEach((item) => {
+  //   let marker = displayGameFlow.gameFlow.length % 2 === 0 ? "X" : "O";
+  //   console.log(marker);
+  //   item.addEventListener("click", pushToGameFlow(marker), {capture: true});
+  //   item.addEventListener("click", substituteInfo(item, marker), {capture: true});
+  // });
 
   // Manipulate Information
   
@@ -84,3 +81,16 @@ let getInfoFromUser = (function () {
 
 })();
 
+let evaluateWinner = (function () {
+
+  // Variables
+
+  let board = displayGameFlow.boardMatrix;
+
+
+  // Evaluation
+
+  if (board[0 || 1 || 2] === "X, X, X" || board[0 || 1 || 2] === "O, O, O") {
+    
+  }
+})();

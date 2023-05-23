@@ -68,7 +68,8 @@ let getInfoFromUser = (function () {
   for (let i = 0; i < squaresArr.length; i++) {
     squaresArr[i].addEventListener("click", pushToGameFlow);
     squaresArr[i].addEventListener("click", () => {
-      substituteInfo(squaresArr[i])
+      substituteInfo(squaresArr[i]);
+      evaluateWinner.evaluateS();
     })
     // squaresArr[i].addEventListener("click", () => {
     //   console.log("Chika gay!");
@@ -98,6 +99,7 @@ let getInfoFromUser = (function () {
   }; 
 
   return {
+    squaresArr
   }
 
 })();
@@ -109,60 +111,48 @@ let evaluateWinner = (function () {
   let board = displayGameFlow.boardMatrix;
   const player1 = [["X"], ["X"], ["X"]];
   const player2 = [["O"], ["O"], ["O"]];
+  const squares = displayGameFlow.boardMatrix;
   console.log(board);
-  function arrayEquals(a, b) {
-    return JSON.stringify(a) === JSON.stringify(b);
+  // function arrayEquals(a, b, c) {
+  //   return JSON.stringify(a) === JSON.stringify(b) && JSON.stringify(a) === JSON.stringify(c);
+
+  // }
+
+  function squaresEquals(i1, j1, i2, j2, i3, j3) {
+    if (i2 === -1 || j2 === -1 || i3 === -1 || j3 === -1 ||
+        i2 === 3 || j2 === 3 || i3 === 3 || j3 === 3)
+      return false;
+      return JSON.stringify(squares[i1][j1]) === JSON.stringify(squares[i2][j2]) && 
+             JSON.stringify(squares[i1][j1]) === JSON.stringify(squares[i3][j3])
+  }
+
+  function determineWinner(i, j) {
+    if (squares[i][j] === "X") {
+      console.log("Player1 wins!");
+    } else if (squares[i][j] === "O") {
+      console.log("Player2 wins!");
+    } else {
+      console.log(squares[i][j]);
+    }
   }
 
   // Evaluation
 
   function evaluateS () { 
-  if (arrayEquals(board[0], player1) ||
-      arrayEquals(board[1], player1) ||
-      arrayEquals(board[2], player1)) {
-      return console.log("Player1 wins!");
-  } else if (
-      arrayEquals(board[0][0], ["X"]) &&
-      arrayEquals(board[1][0], ["X"]) && 
-      arrayEquals(board[2][0], ["X"]) ||
-      arrayEquals(board[0][1], ["X"]) &&
-      arrayEquals(board[1][1], ["X"]) && 
-      arrayEquals(board[2][1], ["X"]) ||
-      arrayEquals(board[0][2], ["X"]) &&
-      arrayEquals(board[1][2], ["X"]) && 
-      arrayEquals(board[2][2], ["X"])) {
-      return console.log("Player1 wins!");
-  } else if (arrayEquals(board[0], player2) ||
-      arrayEquals(board[1], player2) ||
-      arrayEquals(board[2], player2)) {
-      return console.log("Player2 wins!");
-  } else if (
-      arrayEquals(board[0][0], ["O"]) &&
-      arrayEquals(board[1][0], ["O"]) && 
-      arrayEquals(board[2][0], ["O"]) ||
-      arrayEquals(board[0][1], ["O"]) &&
-      arrayEquals(board[1][1], ["O"]) && 
-      arrayEquals(board[2][1], ["O"]) ||
-      arrayEquals(board[0][2], ["O"]) &&
-      arrayEquals(board[1][2], ["O"]) && 
-      arrayEquals(board[2][2], ["O"])) {
-      return console.log("Player2 wins!");
-  } else if (arrayEquals(board[0][0], ["X"]) && 
-      arrayEquals(board[1][1], ["X"]) &&
-      arrayEquals(board[2][2], ["X"]) ||
-      arrayEquals(board[0][2], ["X"]) &&
-      arrayEquals(board[1][1], ["X"]) &&
-      arrayEquals(board[2][0], ["X"])) {
-      return console.log("Player1 wins!");
-  } else if (arrayEquals(board[0][0], ["O"]) && 
-      arrayEquals(board[1][1], ["O"]) &&
-      arrayEquals(board[2][2], ["O"]) ||
-      arrayEquals(board[0][2], ["O"]) &&
-      arrayEquals(board[1][1], ["O"]) &&
-      arrayEquals(board[2][0], ["O"])) {
-      return console.log("Player2 wins!");
-  };
-}
+   for (let i = 0; i < squares.length; i++) {
+    for (let j = 0; j < squares.length; j++) {
+      if (squares[i][j] !== []) {
+        if (squaresEquals(i, j, i, j - 1, i, j + 1) ||
+            squaresEquals(i, j, i + 1, j, i - 1, j) || 
+            squaresEquals(i, j, i + 1, j + 1, i - 1, j - 1) || 
+            squaresEquals(i, j, i + 1, j - 1, i - 1, j + 1)) {
+            determineWinner(i, j);
+          }
+    } else {
+      console.log("Your mom is dead");
+    }
+   }
+}}
 
   return {
     player1,

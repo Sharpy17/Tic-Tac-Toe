@@ -48,35 +48,57 @@ let displayGameFlow = (function () {
 })();
 
 
-
 let getInfoFromUser = (function () {
 
   // Pre-requisites
 
   const squares = document.querySelectorAll("div");
   const squaresArr = Array.from(squares);
-
+  let marker = "X";
   // Event Listeners
   
-  squaresArr.forEach((item) => {
-    let marker = displayGameFlow.gameFlow.length % 2 === 0 ? "X" : "O";
-    console.log(marker);
-    item.addEventListener("click", pushToGameFlow(marker));
-    item.addEventListener("click", substituteInfo(item, marker));
-  });
+//while (filled != 9) {
+  //squaresArr.forEach((item) => {
+    // let marker = displayGameFlow.gameFlow.length % 2 === 0 ? "X" : "O";
+    // console.log(marker);
+    // squaresArr[filled].addEventListener("mouseover", pushToGameFlow(marker));
+    // item.addEventListener("mouseover", substituteInfo(item, marker));
+  //});
+
+  for (let i = 0; i < squaresArr.length; i++) {
+    squaresArr[i].addEventListener("click", pushToGameFlow);
+    squaresArr[i].addEventListener("click", () => {
+      substituteInfo(squaresArr[i])
+    })
+    // squaresArr[i].addEventListener("click", () => {
+    //   console.log("Chika gay!");
+    //   pushToGameFlow(marker);
+    //   console.log(displayGameFlow.gameFlow);
+    // });
+  }
+//}
+  
 
   // Manipulate Information
   
-  function pushToGameFlow(marker) {
+  function pushToGameFlow() {
+    console.log(marker);
     displayGameFlow.gameFlow.push(marker);
-  }
+    if (marker == "X") marker = "O";
+    else marker = "X";
+    }
 
-  function substituteInfo(square, marker) {
+  function substituteInfo(square) {
     const squareName = square.className
     const row = squareName.slice(0, 1);
     const column = squareName.slice(2, 3);
     displayGameFlow.boardMatrix[row][column].push(marker); 
+    displayGameFlow.translateInformation(row, column);
+    evaluateWinner.evaluateS();
   }; 
+
+  return {
+  }
 
 })();
 
@@ -94,6 +116,7 @@ let evaluateWinner = (function () {
 
   // Evaluation
 
+  function evaluateS () { 
   if (arrayEquals(board[0], player1) ||
       arrayEquals(board[1], player1) ||
       arrayEquals(board[2], player1)) {
@@ -139,11 +162,12 @@ let evaluateWinner = (function () {
       arrayEquals(board[2][0], ["O"])) {
       return console.log("Player2 wins!");
   };
+}
 
   return {
     player1,
     board,
-    arrayEquals
+    evaluateS
   }
 })();
 

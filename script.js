@@ -46,13 +46,69 @@ let displayGameFlow = (function () {
 })();
 
 
+
+let evaluateWinner = (function () {
+
+  // Pre-requisites
+
+  const board = displayGameFlow.boardMatrix;
+  const winner = document.querySelector(".winner");
+  const squaresNode = document.querySelectorAll("div");
+  const squares = Array.from(squaresNode);
+
+  function arrayEquals(a, b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
+
+  function squaresEqual(i1, j1, i2, j2, i3, j3) {
+    if (i2 === -1 || j2 === -1 || i3 === -1 || j3 === -1 ||
+        i2 === 3 || j2 === 3 || i3 === 3 || j3 === 3) {
+      return false; 
+    } else {
+      return JSON.stringify(board[i1][j1]) === JSON.stringify(board[i2][j2]) && 
+             JSON.stringify(board[i1][j1]) === JSON.stringify(board[i3][j3])
+  }}
+
+  // Evaluation
+
+  const empty = [];
+
+  function evaluate () { 
+   for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board.length; j++) {
+      if (arrayEquals(board[i][j], empty)) {
+        console.log("I am not going back to Anteiku!");
+      } else if (squaresEqual(i, j, i, j - 1, i, j + 1) ||
+          squaresEqual(i, j, i + 1, j, i - 1, j) || 
+          squaresEqual(i, j, i + 1, j + 1, i - 1, j - 1) || 
+          squaresEqual(i, j, i + 1, j - 1, i - 1, j + 1)) {
+        winner.textContent = `Player ${board[i][j]} wins!`;
+     }
+   }
+}}
+
+function findDraw () {
+  squares.every(square => {
+    return square.textContent !== "" ? winner.textContent = "It's a draw" : false;
+  })
+};
+
+  return {
+    evaluate,
+    findDraw,
+    winner,
+    squares
+  }
+})();
+
+
+
 let getInfoFromUser = (function () {
 
   // Pre-requisites
 
-  const squares = document.querySelectorAll("div");
+  const squaresArr = evaluateWinner.squares;
   const reset = document.querySelector(".reset");
-  const squaresArr = Array.from(squares);
   const board = displayGameFlow.boardMatrix;
   let marker = "X";
 
@@ -61,8 +117,8 @@ let getInfoFromUser = (function () {
   for (let i = 0; i < squaresArr.length; i++) {
     squaresArr[i].addEventListener("click", () => {
       substituteInfo(squaresArr[i]);
-      evaluateWinner.evaluate();
-    })
+    });
+    // squaresArr[i].addEventListener("click", evaluateWinner.findDraw);
   };
 
   reset.addEventListener("click", clearSquare);
@@ -98,47 +154,5 @@ let getInfoFromUser = (function () {
 
 })(); 
 
-let evaluateWinner = (function () {
 
-  // Pre-requisites
-
-  const board = displayGameFlow.boardMatrix;
-  const winner = document.querySelector(".winner");
-
-  function arrayEquals(a, b) {
-    return JSON.stringify(a) === JSON.stringify(b);
-  }
-
-  function squaresEqual(i1, j1, i2, j2, i3, j3) {
-    if (i2 === -1 || j2 === -1 || i3 === -1 || j3 === -1 ||
-        i2 === 3 || j2 === 3 || i3 === 3 || j3 === 3) {
-      return false; 
-    } else {
-      return JSON.stringify(board[i1][j1]) === JSON.stringify(board[i2][j2]) && 
-             JSON.stringify(board[i1][j1]) === JSON.stringify(board[i3][j3])
-  }}
-
-  // Evaluation
-
-  const empty = [];
-
-  function evaluate () { 
-   for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board.length; j++) {
-      if (arrayEquals(board[i][j], empty)) {
-        console.log("I am not going back to Anteiku!");
-      } else if (squaresEqual(i, j, i, j - 1, i, j + 1) ||
-          squaresEqual(i, j, i + 1, j, i - 1, j) || 
-          squaresEqual(i, j, i + 1, j + 1, i - 1, j - 1) || 
-          squaresEqual(i, j, i + 1, j - 1, i - 1, j + 1)) {
-        winner.textContent = `Player ${board[i][j]} wins!`
-    }
-   }
-}}
-
-  return {
-    evaluate,
-    winner
-  }
-})();
 

@@ -130,7 +130,6 @@ let getInfoFromUser = (function () {
     const squareName = square.className
     const row = squareName.slice(0, 1);
     const column = squareName.slice(2, 3);
-    console.log(board[row][column])
     if (evaluateWinner.arrayEquals(board[row][column], [])) {
       board[row][column].push(marker); 
       displayGameFlow.translateInformation(row, column);
@@ -159,6 +158,5 @@ let getInfoFromUser = (function () {
   }
 
 })(); 
-
 
 

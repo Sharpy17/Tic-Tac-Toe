@@ -17,31 +17,11 @@ body {
 }
 
 .game-board {
-    position: absolute;
-    top: 150px;
-    height: 35vh;
-    width: 55vw;
+    height: 75vh;
+    width: 75vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-}
-
-.reset {
-    font-family: Russo One;
-    width: 125px;
-    height: 65px;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    position: absolute;
-    right: 100px;
-    top: 25px;
-    background-color: #1f2937;
-    color: #a855f7;
-}
-
-.reset:hover {
-    border: 2px solid #498cea;
 }
 
 .game-board div {

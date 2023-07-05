@@ -71,20 +71,18 @@ let evaluateWinner = (function () {
 
   // Evaluation
 
-  const empty = [];
-
   function evaluate () { 
    for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board.length; j++) {
-      if (arrayEquals(board[i][j], empty)) {
-        console.log("I am not going back to Anteiku!");
-      } else if (squaresEqual(i, j, i, j - 1, i, j + 1) ||
-          squaresEqual(i, j, i + 1, j, i - 1, j) || 
-          squaresEqual(i, j, i + 1, j + 1, i - 1, j - 1) || 
-          squaresEqual(i, j, i + 1, j - 1, i - 1, j + 1)) {
-        winner.textContent = `Player ${board[i][j]} wins!`;
-     }
-   }
+      if (!arrayEquals(board[i][j], [])) {
+        if (squaresEqual(i, j, i, j - 1, i, j + 1) ||
+            squaresEqual(i, j, i + 1, j, i - 1, j) || 
+            squaresEqual(i, j, i + 1, j + 1, i - 1, j - 1) || 
+            squaresEqual(i, j, i + 1, j - 1, i - 1, j + 1)) {
+          winner.textContent = `Player ${board[i][j]} wins!`;
+      }
+    }
+  }
 }}
 
 function findDraw () {
@@ -118,8 +116,9 @@ let getInfoFromUser = (function () {
   for (let i = 0; i < squaresArr.length; i++) {
     squaresArr[i].addEventListener("click", () => {
       substituteInfo(squaresArr[i]);
+      // evaluateWinner.findDraw();
     });
-    // squaresArr[i].addEventListener("click", evaluateWinner.findDraw);
+    squaresArr[i].addEventListener("click", evaluateWinner.findDraw);
   };
 
   reset.addEventListener("click", clearSquare);

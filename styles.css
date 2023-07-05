@@ -13,14 +13,14 @@ body {
 
 .winner {
     font-family: Indie Flower;
-    font-size: 45px;
+    font-size: 25px;
 }
 
 .game-board {
     position: absolute;
     top: 125px;
-    height: 30vh;
-    width: 45vw;
+    height: 47vh;
+    width: 69vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -28,13 +28,13 @@ body {
 
 .reset {
     font-family: Russo One;
-    width: 125px;
-    height: 65px;
+    width: 80px;
+    height: 40px;
     font-size: 18px;
     border: none;
     border-radius: 8px;
     position: absolute;
-    right: 80px;
+    right: 40px;
     top: 25px;
     background-color: #1f2937;
     color: #a855f7;
@@ -47,7 +47,7 @@ body {
 .game-board div {
     display: flex;
     border: 2px solid #1f2937;
-    font-size: 105px;    
+    font-size: 60px;    
     justify-content: center;
     align-items: center;
 }
@@ -56,4 +56,17 @@ body {
     .game-board { 
         height: 70vh; 
         width: 45vw; 
-    } }
+    } 
+    .winner {
+        font-family: Indie Flower;
+        font-size: 45px;
+    }
+    
+    .game-board div {
+        font-size: 105px;    
+    }
+
+    .reset {
+        right: 80px;
+    }
+}

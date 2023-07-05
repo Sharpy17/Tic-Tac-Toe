@@ -1,15 +1,61 @@
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower:regular);
+@import url(https://fonts.googleapis.com/css?family=Russo+One:regular);
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Russo One;
+    background-color: #a1a1aa;
+}
+
+.winner {
+    font-family: Indie Flower;
+    font-size: 45px;
+}
+
 .game-board {
-    height: 75vh;
-    width: 75vw;
+    position: absolute;
+    top: 150px;
+    height: 35vh;
+    width: 55vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
 
+.reset {
+    font-family: Russo One;
+    width: 125px;
+    height: 65px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    position: absolute;
+    right: 100px;
+    top: 25px;
+    background-color: #1f2937;
+    color: #a855f7;
+}
+
+.reset:hover {
+    border: 2px solid #498cea;
+}
+
 .game-board div {
     display: flex;
-    border: 2px solid black;
-    font-size: 150px;    
+    border: 2px solid #1f2937;
+    font-size: 105px;    
     justify-content: center;
     align-items: center;
+}
+
+@media only screen and (min-width: 760px) {
+    .game-board {
+        position: fixed;
+        height: 70vh;
+        width: 40vw;
+    }
 }

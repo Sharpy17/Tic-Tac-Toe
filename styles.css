@@ -17,11 +17,31 @@ body {
 }
 
 .game-board {
-    height: 75vh;
-    width: 75vw;
+    position: absolute;
+    top: 125px;
+    height: 30vh;
+    width: 45vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+}
+
+.reset {
+    font-family: Russo One;
+    width: 125px;
+    height: 65px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    position: absolute;
+    right: 80px;
+    top: 25px;
+    background-color: #1f2937;
+    color: #a855f7;
+}
+
+.reset:hover {
+    border: 2px solid #498cea;
 }
 
 .game-board div {
@@ -32,10 +52,8 @@ body {
     align-items: center;
 }
 
-@media only screen and (min-width: 760px) {
-    .game-board {
-        position: fixed;
-        height: 70vh;
-        width: 40vw;
-    }
-}
+@media only screen and (min-width: 760px) { 
+    .game-board { 
+        height: 70vh; 
+        width: 45vw; 
+    } }

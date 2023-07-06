@@ -85,11 +85,18 @@ let evaluateWinner = (function () {
   }
 }}
 
-function findDraw () {
-  squares.every(square => {
-    return square.textContent !== "" ? winner.textContent = "It's a draw" : false;
-  })
-};
+// function findDraw () {
+//   squares.every(square => {
+//     return square.textContent !== "" ? winner.textContent = "It's a draw" : false;
+//   })
+// };
+
+ function findDraw (square) {
+    return square.textContent !== "";
+ }
+
+
+
 
   return {
     evaluate,
@@ -116,9 +123,10 @@ let getInfoFromUser = (function () {
   for (let i = 0; i < squaresArr.length; i++) {
     squaresArr[i].addEventListener("click", () => {
       substituteInfo(squaresArr[i]);
-      // evaluateWinner.findDraw();
+      if (squaresArr.every(evaluateWinner.findDraw)) {
+        evaluateWinner.winner.textContent = "It's a draw!";
+      }
     });
-    squaresArr[i].addEventListener("click", evaluateWinner.findDraw);
   };
 
   reset.addEventListener("click", clearSquare);
